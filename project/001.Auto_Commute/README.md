@@ -11,7 +11,7 @@
 
    * 브라우저 개발자 도구를 이용한 자동 출근
 
-        브라우저의 개발자 도구를 열고, `console` 탭에서 `prt-auto_commute.js`의 내용을 복사 & 붙여넣기(`Ctrl` + `C` && `Ctrl` + `V`)   붙여넣어서 실행하기 전에 사용자의 `그룹웨어 ID`, `그룹웨어 PW`, `사용자 이름`과 텔레그램 BOT을 통해서 알릴 수 있도록 텔레그램 BOT의 `TELEGRAM BOT TOKEN값`, `TELEGRAM BOT CHAT ID`를 필히 수정하여 사용하여야 합니다.
+        브라우저의 개발자 도구를 열고, `console` 탭에서 `prt-auto_commute.js`의 내용을 복사 & 붙여넣기(`Ctrl` + `C` && `Ctrl` + `V`) <br>붙여넣어서 실행하기 전에 사용자의 `그룹웨어 ID`, `그룹웨어 PW`, `사용자 이름`과 텔레그램 BOT을 통해서 알릴 수 있도록 텔레그램 BOT의 `TELEGRAM BOT TOKEN값`, `TELEGRAM BOT CHAT ID`를 필히 수정하여 사용하여야 합니다.
 
    * 파이썬 프로그램을 이용한 자동 출근 (OS:LINUX)
 
