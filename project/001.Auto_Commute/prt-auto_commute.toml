@@ -1,0 +1,14 @@
+url = "https://ngwx.ktbizoffice.com/LoginN.aspx?compid={회사ID}"
+
+[[user_info]]
+user_id = "{그룹웨어 사용자 ID}"
+user_pw = "{그룹웨어 사용자 PW}"
+user_nm = "{그룹웨어 사용자 이름}"
+
+[telegram]
+token = "{Telegram TOKEN값}"
+api_url = "{Telegram API URL}"
+chat_id = "{Telegram Bot Chat ID}"
+
+[selenium]
+chromedriver_path = "{CHROMEDRIVER ABSOLUTE FILEPATH}"
