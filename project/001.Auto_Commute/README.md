@@ -20,7 +20,7 @@
 
         ```
         # 매일 월(1)-금(5) 08:45분에 실행
-        45 8 * * 1,2,3,4,5 export DISPLAY=:0 && /home/gouwon/venv/py_venv3.9/bin/python /home/gouwon/development/02.Project/001.Auto_Commute/prt-auto_commute.py prt-auto_commute.toml > /home/gouwon/auto_commute.log 2>&1
+        45 9 * * 1,2,3,4,5 export DISPLAY=:0 && /home/gouwon/venv/py_venv3.9/bin/python /home/gouwon/development/02.Project/001.Auto_Commute/prt-auto_commute.py prt-auto_commute.toml > /home/gouwon/auto_commute.log
         ```
      * SHELL SCRIPT 을 이용한 프로그램 실행
 
