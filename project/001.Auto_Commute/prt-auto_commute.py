@@ -12,12 +12,12 @@
 ## fer ##
 
 
+import os
+import sys
+import asyncio
 from time import sleep
 from random import randrange
-import sys
-import os
 from datetime import datetime
-import asyncio
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -68,6 +68,7 @@ def auto_commute(user_info, url='https://ngwx.ktbizoffice.com/LoginN.aspx?compid
     js_result = driver.execute_script(
         """
         var isOff = false;
+        var isSuccess = false;
         var ul = document.querySelector('#mainFrame').contentWindow.document.querySelector('#subtdde08 > iframe').contentWindow.document.querySelector('#tdResultList > ul');
 
         disIN = document.querySelector('#mainFrame').contentWindow.document.querySelector('#subtd38ce > iframe').contentWindow.document.querySelector('#disIN')
@@ -81,10 +82,11 @@ def auto_commute(user_info, url='https://ngwx.ktbizoffice.com/LoginN.aspx?compid
         if (!isOff) {
             if (disIN.textContent === '출근입력') {
                 disIN.click();
-                console.log('isOff >> ' + isOff);
+                console.log('disIN.textContent >> ' + disIN.textContent);
+                isSuccess = true;
             }
         }
-        return isOff;
+        return isSuccess;
         """ % (user_info['user_nm'])
     )
     sleep(3)
@@ -107,6 +109,7 @@ if __name__ == '__main__':
 
     for user_info in cfg_data['user_info']:
         commute_result = auto_commute(user_info, url)
+        print('commute_result :: ', commute_result)
         now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         tele_msg = f'출근 하였습니다.\n 실행완료시간: {now}' if commute_result == 'success' else f'출근 하지 못 했습니다.\n 실행완료시간: {now}'
         send_noti_by_telegram(tele_msg=tele_msg)
