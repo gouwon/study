@@ -47,3 +47,6 @@
    * 필요 드라이버
      * `google-chrome` : `116.0.5845.110`
      * `chromedriver` : `google-chrome` 버전에 맞춰서 다음의 사이트에서 다운로드 [chromedriver](https://sites.google.com/chromium.org/driver/downloads/version-selection)
+    
+4. 주의사항
+   * 로그인 이후 메인 페이지에서 사용자별로 iframe의 selector가 다르기 때문에 이 부분을 소스에서 수정하여 사용하여야 한다.
