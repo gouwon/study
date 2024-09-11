@@ -54,9 +54,8 @@ def print_or_save(df, file_name=None):
         save_to_file(df, file_name)
         print(f"결과가 '{file_name}' 파일로 저장되었습니다.")
     else:
-        # 표준 출력
-        for index, row in df.iterrows():
-            print(row[0])  # 표준 출력에 각 행을 출력
+        # 표준 출력 (모든 컬럼과 모든 행 출력)
+        print(df.to_string(index=False))  # 인덱스 없이 전체 DataFrame 출력
 
 # 사용자 정보 입력
 username = "test"
