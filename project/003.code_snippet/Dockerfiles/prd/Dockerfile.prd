@@ -1,0 +1,68 @@
+# 스테이지 1: 빌드 환경 (Build Stage)
+# 개발용 환경에서 필요한 모든 패키지 설치 및 빌드를 수행합니다.
+FROM python:3.9 as builder
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 애플리케이션의 Python 패키지를 미리 설치합니다.
+# 이렇게 하면 의존성 파일이 변경되지 않는 한 캐시를 활용할 수 있습니다.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 스테이지 2: 최종 운영 환경 (Final Stage)
+# 애플리케이션 실행에 필요한 최소한의 환경만 구축합니다.
+# Alpine 이미지는 매우 가볍습니다.
+FROM python:3.9-slim
+
+# 필요한 패키지 설치
+# Playwright를 실행하기 위한 필수 라이브러리만 설치합니다.
+RUN apt-get update && apt-get install -y \
+    libnspr4 \
+    libnss3 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libxkbcommon0 \
+    libatspi2.0-0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libwoff1 \
+    fonts-noto-color-emoji \
+    libgdk-pixbuf-xlib-2.0-0 \
+    fonts-unifont \
+    libu2f-udev \
+    libxshmfence-dev \
+    libxtst6 \
+    libgtk-3-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 빌드 스테이지에서 설치한 패키지를 복사합니다.
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+
+# Playwright 브라우저를 최종 이미지에 설치합니다.
+RUN playwright install --with-deps
+
+# 애플리케이션 소스 코드 복사
+COPY . .
+COPY ./app /app
+COPY ./run.py /workspace/run.py
+COPY ./requirements.txt /workspace/requirements.txt
+COPY ./README.md /workspace/README.md
+
+# 포트 노출
+EXPOSE 5000
+
+# 애플리케이션 실행 명령어
+# Gunicorn을 사용하여 애플리케이션 실행
+# 'run'은 run.py 파일명, 'app'은 run.py에 정의된 Flask 애플리케이션 객체명입니다.
+# --bind 0.0.0.0:5000: 모든 네트워크 인터페이스에 5000번 포트로 바인딩
+# --workers 4: 동시 처리 워커 수 (일반적으로 CPU 코어 수 * 2 + 1)
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "run:app"]
