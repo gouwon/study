@@ -110,7 +110,7 @@ warmup_reps = round(10 / W)
 
 # 3. 웜업 세트 가이드
 try:
-    prev_weight = int(input("🔄 이전 세트에서 사용한 무게를 입력하세요 (kg, 기본값 50): "))
+    prev_weight = input("🔄 이전 세트에서 사용한 무게를 입력하세요 (kg, 기본값 50): ")
     suggested_warmup_w = round_to_plate(float(prev_weight) * warmup_ratio)
 except ValueError:
     print("⚠️ 올바른 숫자가 아닙니다. 기본값 50kg으로 설정합니다.")
@@ -129,7 +129,7 @@ try:
 
     # 1. 이전 운동 무게 기준 기대 1RM 역산 (근비대 가중치 1.0 기준 역산)
     intensity_factor = 0.375 * W + 0.4   #  W=0.6(60%), 1.0(76%), 1.2(85%)
-    expected_1rm = int(prev_weight) / intensity_factor 
+    expected_1rm = float(prev_weight) / intensity_factor 
 
     # 2. 웜업 결과로 얻은 실시간 1RM (컨디션 확인용)
     warmup_estimated_1rm = calculate_1rm(warmup_set_weight, warmup_set_reps)
@@ -145,7 +145,7 @@ except ValueError:
 print(f"✅ 웜업 세트 입력: {warmup_set_weight}kg x {warmup_set_reps}회")
 
 # 5. 본 운동 가이드
-BASE_WEIGHT = prev_weight
+BASE_WEIGHT = float(prev_weight)
 target_weight = round_to_plate(BASE_WEIGHT)
 target_reps = BASE_REPS
 min_reps_threshold = math.ceil(target_reps * 0.7)  # 최소 반복 횟수는 목표 반복 횟수의 70%로 설정
